@@ -1,4 +1,7 @@
-function mark_all!(r::Robot)
+# ДАНО: Робот находится в произвольной клетке ограниченного прямоугольного поля без внутренних перегородок и маркеров.
+# РЕЗУЛЬТАТ: Робот — в исходном положении в центре прямого креста из маркеров, расставленных вплоть до внешней рамки.
+
+function mark_all!(r::Robot) # Маркерует поле сверху вниз, двигаясь направо
     marktoborder!(r, Nord)
     if(!isborder(r, Ost))
         move!(r, Ost)
@@ -9,23 +12,23 @@ function mark_all!(r::Robot)
         end
     end
 end
-function gotobegin!(r)
+function gotobegin!(r) # возвращает робота в левый нижний угол
     gotoborder!(r, West)
     gotoborder!(r, Sud)
 end
-function gotoborder!(r, side)
+function gotoborder!(r, side) # двигает робота к границе
     while(!isborder(r, side))
         move!(r, side)
     end
 end
-function marktoborder!(r, side)
+function marktoborder!(r, side) # проверяет есть ли граница, идет и маркерует до нее
     while(!isborder(r, side))
         putmarker!(r)
         move!(r, side)
     end
     putmarker!(r)
 end
-function main(r::Robot)
+function main(r::Robot) # главная функция, запускает все остальные
     gotobegin!(r)
     mark_all!(r)
     gotobegin!(r)
