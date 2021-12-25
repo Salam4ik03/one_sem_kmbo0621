@@ -1,20 +1,23 @@
-function gotobegin!(r)
+# ДАНО: Робот - Робот - в произвольной клетке ограниченного прямоугольного поля
+# РЕЗУЛЬТАТ: Робот - в исходном положении, и клетки поля промакированы так: нижний ряд - полностью, следующий - весь, за исключением одной последней клетки на Востоке,
+# следующий - за исключением двух последних клеток на Востоке, и т.д.
+function gotobegin!(r) # возвращает робота в левый нижний угол
     gotoborder!(r, West)
     gotoborder!(r, Sud)
 end
-function gotoborder!(r, side)
+function gotoborder!(r, side) # проверять еслть граница и идти к ней
     while(!isborder(r, side))
         move!(r, side)
     end
 end
-function marktoborder!(r, side)
+function marktoborder!(r, side) #проверять есть граница маркировать и идти к ней
     while(!isborder(r, side))
         putmarker!(r)
         move!(r, side)
     end
     putmarker!(r)
 end
-function marktoborder_with_exceptions!(r, counter)
+function marktoborder_with_exceptions!(r, counter) 
     gotoborder!(r, Ost)
     while(counter > 0)
         move!(r, West)
