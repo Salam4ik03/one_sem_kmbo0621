@@ -1,16 +1,20 @@
-function gotobegin!(r)
+# ДАНО: На ограниченном внешней прямоугольной рамкой поле имеется ровно одна внутренняя перегородка в форме прямоугольника.
+# Робот - в произвольной клетке поля между внешней и внутренней перегородками.
+# РЕЗУЛЬТАТ: Робот - в исходном положении и по всему периметру внутренней перегородки поставлены маркеры.
+
+function gotobegin!(r) # возвращает робота в левый нижний угол
     gotoborder!(r, West)
     gotoborder!(r, Sud)
     if(!(isborder(r, West) & isborder(r, Sud)))
         gotobegin!(r)
     end
 end
-function gotoborder!(r, side)
+function gotoborder!(r, side) # двигает робота к границе
     while(!isborder(r, side))
         move!(r, side)
     end
 end
-function seek(r)
+function seek(r) # ищет границы заданной перегородки
     while(!isborder(r, Nord))
         if(!isborder(r, Ost))
             move!(r, Ost)
@@ -20,7 +24,7 @@ function seek(r)
         end
     end
 end
-function mark(r)
+function mark(r) # маркирает периметр заданой перегородки
     while(isborder(r, Nord))
         putmarker!(r)
         move!(r, Ost)
@@ -51,7 +55,7 @@ function mark(r)
 
 
 end
-function main(r)
+function main(r) # главная функция
     gotobegin!(r)
     seek(r)
     mark(r)
