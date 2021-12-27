@@ -1,3 +1,5 @@
+# ДАНО: Робот - в произвольной клетке ограниченного прямоугольной рамкой поля без внутренних перегородок и маркеров.
+# РЕЗУЛЬТАТ: Робот - в исходном положении в центре косого креста (в форме X) из маркеров.
 function turn_side(side)
     if side == Nord
         return West
@@ -50,7 +52,7 @@ function measure_field(r)
     gotoborder(r, West)
     return (x,y)
 end
-function measure_distance_to_border(r, side)
+function measure_distance_to_border(r, side) #измеряет длину до границы 
     distance = 0
     while(!isborder(r, side))
         move!(r, side)
@@ -63,7 +65,7 @@ function measure_distance_to_border(r, side)
     end
     return distance
 end
-function draw_piece(r, side1, side2)
+function draw_piece(r, side1, side2) #рисует куски креста по замерам
     x = measure_distance_to_border(r, side1)
     y = measure_distance_to_border(r, side2)
     print(x)
@@ -94,7 +96,7 @@ function draw_piece(r, side1, side2)
         move!(r, invert_side(side2))
     end
 end
-function main(r)
+function main(r) #главная функция
     putmarker!(r)
     draw_piece(r, Nord, Ost)
     draw_piece(r, Nord, West)
